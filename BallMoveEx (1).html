@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>JS ex</title>
+        <style>
+            #ball{
+                height: 50px;
+                position: relative;
+            }
+        </style>
+    </head>
+    <body onresize="resize()" id="body">
+        <h1>Ball Move Project:</h1>
+        <button onclick="start()">Start</button>
+        <button onclick="stop()">Stop</button>
+        <button onclick="reset()">Reset</button>
+        <br/>
+        <img id='ball' src="ball.png" />
+    </body>
+    <script>
+        var body=document.getElementById("body");
+        var ball=document.getElementById("ball");
+        var x=0;
+        var y=0;
+        var w= window.innerWidth-61;
+        var h= window.innerHeight-152;
+        function resize(){
+            w= window.innerWidth-61;
+            h= window.innerHeight-152;
+        }
+        var i;
+        var flag="forward";
+        function start(){
+            clearInterval(i);
+            i=setInterval(function(){
+                if(flag=="forward"){
+                    if(y<h && x<w/2 ){
+                        body.style.backgroundColor="white";
+                        x += 1;
+                        y += 2*h/w;
+                        ball.style.left=x+"px";
+                        ball.style.top=y+"px";
+                    }else if(y>0 && x>w/2){
+                        body.style.backgroundColor="red";
+                        x += 1;
+                        y -= 2*h/w;
+                        ball.style.left=x+"px";
+                        ball.style.top=y+"px";
+                    }else {
+                        flag="backward";
+                    }
+                }else{
+                    if(y<h && x>w/2 ){
+                        body.style.backgroundColor="yellow";
+                        x -= 1;
+                        y += 2*h/w;
+                        ball.style.left=x+"px";
+                        ball.style.top=y+"px";
+                    }else if(y>0 && x>0){
+                        body.style.backgroundColor="red";
+                        x -= 1;
+                        y -= 2*h/w;
+                        ball.style.left=x+"px";
+                        ball.style.top=y+"px";
+                    }else {
+                        flag="forward";
+                    }
+                }
+            },1);
+        }
+        function stop(){
+            clearInterval(i);
+        }
+        function reset(){
+            clearInterval(i);
+            body.style.backgroundColor="white";
+            x = 0;
+            y = 0;
+            ball.style.left=x+"px";
+            ball.style.top=y+"px";
+        }
+    </script>
+</html>

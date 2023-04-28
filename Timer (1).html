@@ -1,0 +1,79 @@
+<html>
+    <head>
+        <title>Timer</title>
+    </head>
+    <body >
+        <h1>My Timer:</h1>
+        <input type="number" id="num" placeholder="Enter minutes for timer" required />
+        <button onclick="start()">Start</button>
+        <button onclick="stop()">Stop</button>
+        <button onclick="resume()">Resume</button>
+        <button onclick="reset()">Reset</button>
+        <p><span id="min">00</span>:<span id="sec">00</span> minutes</p>
+    </body>
+    <script>
+        var n=document.getElementById("num");
+        var min=document.getElementById("min");
+        var sec=document.getElementById("sec");
+
+        var s=60;
+        var m;
+        var i;
+        function start(){
+            m=parseInt(n.value);
+            s=0;
+            min.innerHTML=m;
+            sec.innerHTML=s;
+            clearInterval(i);
+            i=setInterval(function(){
+                if(s!=0){
+                    s--;
+                    sec.innerHTML=s;
+                    if(s==59){
+                        m--;
+                        min.innerHTML=m;
+                    }
+                }else{
+                    s=59;
+                    sec.innerHTML=s;
+                    m--;
+                    min.innerHTML=m;
+                }
+                if(m==0 && s==0){
+                    clearInterval(i);
+                }
+            },1000);
+        }
+        function stop(){
+            clearInterval(i);
+        }
+        function resume(){
+            clearInterval(i);
+            i=setInterval(function(){
+                if(s!=0){
+                    s--;
+                    sec.innerHTML=s;
+                    if(s==59){
+                        m--;
+                        min.innerHTML=m;
+                    }
+                }else{
+                    s=59;
+                    sec.innerHTML=s;
+                    m--;
+                    min.innerHTML=m;
+                }
+                if(m==0 && s==0){
+                    clearInterval(i);
+                }
+            },1000);
+        }
+        function reset(){
+            m=0;
+            s=0;
+            clearInterval(i);
+            sec.innerHTML="00";
+            min.innerHTML="00";
+        }
+    </script>
+</html>
